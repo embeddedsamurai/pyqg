@@ -33,7 +33,8 @@ class QGModel(object):
         taveint=86400.,             # time interval used for summation in longterm average in seconds
         tpickup=31536000.,          # time interval to write out pickup fields ("experimental")
         # diagnostics parameters
-        diagnostics_list='all'      # which diagnostics to output
+        diagnostics_list='all',     # which diagnostics to output
+        use_reikna=False             # try to use reikna GPU for FFT
         ):
         """Initialize the two-layer QG model.
         
@@ -102,18 +103,10 @@ class QGModel(object):
 
         self.x,self.y = np.meshgrid(
             np.arange(0.5,self.nx,1.)/self.nx*self.L,
-            np.arange(0.5,self.ny,1.)/self.ny*self.W )
-        
-        # initial conditions: (PV anomalies)
-        self.set_q1q2(
-            1e-7*np.random.rand(self.ny,self.nx) + 1e-6*(
-                                np.ones((self.ny,1)) * np.random.rand(1,self.nx) ),
-            np.zeros_like(self.x)        
-        )    
+            np.arange(0.5,self.ny,1.)/self.ny*self.W )  
 
         # Background zonal flow (m/s):
         self.U = self.U1 - self.U2
-
         # Notice: at xi=1 U=beta*rd^2 = c for xi>1 => U>c
 
         # wavenumber one
@@ -175,6 +168,29 @@ class QGModel(object):
         self.dt0 = self.dt
         self.dt1 = 0.
         
+        self._fft2 = np.fft.fft2
+        self._ifft2 = np.fft.ifft2
+        if use_reikna:
+            try:
+                from reikna import cluda
+                from reikna.fft import FFT
+                # set up thread for computation
+                api = cluda.ocl_api()
+                thr = api.Thread.create()
+                # compile fft
+                fft = FFT(data_dev, axes=axes)
+                
+            except ImportError:
+                warnings.warn("Can't import reikna. Using numpy FFT.")
+                self.use_reikna = False     
+                
+        # initial conditions: (PV anomalies)
+        self.set_q1q2(
+            1e-7*np.random.rand(self.ny,self.nx) + 1e-6*(
+                                np.ones((self.ny,1)) * np.random.rand(1,self.nx) ),
+            np.zeros_like(self.x)        
+        )
+        
         self._initialize_diagnostics()
         if diagnostics_list == 'all':
             pass # by default, all diagnostics are active
@@ -182,23 +198,24 @@ class QGModel(object):
             self.set_active_diagnostics([])
         else:
             self.set_active_diagnostics(diagnostics_list)
+        
 
     def set_q1q2(self, q1, q2):
         self.q1 = q1
         self.q2 = q2
-        # initialize spectral PV
-        self.qh1 = np.fft.fft2(self.q1)
-        self.qh2 = np.fft.fft2(self.q2)
+        # initialize spectral PVself._fft2
+        self.qh1 = self._fft2(self.q1)
+        self.qh2 = self._fft2(self.q2)
         
 
     # compute advection in grid space (returns qdot in fourier space)
     def advect(self, q, u, v):
-        return 1j*self.k*np.fft.fft2(u*q) + 1j*self.l*np.fft.fft2(v*q)
+        return 1j*self.k*self._fft2(u*q) + 1j*self.l*self._fft2(v*q)
         
     # compute grid space u and v from fourier streafunctions
     def caluv(self, ph):
-        u = -np.real(np.fft.ifft2(1j*self.l*ph))
-        v = np.real(np.fft.ifft2(1j*self.k*ph))
+        u = -np.real(self._ifft2(1j*self.l*ph))
+        v = np.real(self._ifft2(1j*self.k*ph))
         return u, v
     
     # Invert PV for streamfunction
@@ -226,8 +243,8 @@ class QGModel(object):
     
     def _step_forward(self):
         # compute grid space qgpv
-        self.q1 = np.real(np.fft.ifft2(self.qh1))
-        self.q2 = np.real(np.fft.ifft2(self.qh2))
+        self.q1 = np.real(self._ifft2(self.qh1))
+        self.q2 = np.real(self._ifft2(self.qh2))
 
         # invert qgpv to find streamfunction and velocity
         self.ph1, self.ph2 = self.invph(self.qh1, self.qh2)
@@ -376,10 +393,10 @@ class QGModel(object):
            
     def _increment_diagnostics(self):
         # compute intermediate quantities needed for some diagnostics
-        self.p1 = np.real(np.fft.ifft2(self.ph1))
-        self.p2 = np.real(np.fft.ifft2(self.ph2))
-        self.xi1 = np.real(np.fft.ifft2(-self.wv2*self.ph1))
-        self.xi2 = np.real(np.fft.ifft2(-self.wv2*self.ph2))
+        self.p1 = np.real(self._ifft2(self.ph1))
+        self.p2 = np.real(self._ifft2(self.ph2))
+        self.xi1 = np.real(self._ifft2(-self.wv2*self.ph1))
+        self.xi2 = np.real(self._ifft2(-self.wv2*self.ph2))
         self.Jptpc = -self.advect(
                     (self.p1 - self.p2),
                     (self.del1*self.u1 + self.del2*self.u2),
