@@ -173,16 +173,36 @@ class QGModel(object):
         if use_reikna:
             try:
                 from reikna import cluda
-                from reikna.fft import FFT
-                # set up thread for computation
-                api = cluda.ocl_api()
-                thr = api.Thread.create()
-                # compile fft
-                fft = FFT(data_dev, axes=axes)
-                
+                from reikna.fft import FFT                
             except ImportError:
                 warnings.warn("Can't import reikna. Using numpy FFT.")
-                self.use_reikna = False     
+                self.use_reikna = False
+            # set up thread for computation
+            api = cluda.ocl_api()
+            thr = api.Thread.create()
+            # compile fft
+            dummy_data_dev = thr.array((self.ny,self.nx), np.complex128)
+            # the compiled function object
+            rfft = FFT(dummy_data_dev).compile(thr)
+            # define wrapper functions for fft and ifft
+            def rfft2(f):
+                # variables that live on the GPU
+                input_dev = thr.to_device(f.astype(np.complex128))
+                output_dev = thr.array((self.ny,self.nx), np.complex128)
+                # forward fft
+                rfft(output_dev, input_dev, 1)
+                return output_dev.get()
+            def rifft2(f):
+                # variables that live on the GPU
+                input_dev = thr.to_device(f.astype(np.complex128))
+                output_dev = thr.array((self.ny,self.nx), np.complex128)
+                # inverse fft
+                rfft(output_dev, input_dev, 0)
+                return output_dev.get()
+            self._fft2 = rfft2
+            self._ifft2 = rifft2
+            
+              
                 
         # initial conditions: (PV anomalies)
         self.set_q1q2(
