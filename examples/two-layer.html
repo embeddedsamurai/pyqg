@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Two Layer QG Model Example &mdash; pyqg 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pyqg 0.1 documentation" href="../index.html"/>
+        <link rel="up" title="Examples" href="../examples.html"/>
+        <link rel="next" title="Barotropic Model Example" href="barotropic.html"/>
+        <link rel="prev" title="Examples" href="../examples.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> pyqg</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Two Layer QG Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="barotropic.html">Barotropic Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sqg.html">Surface QG Model Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notation_twolayer_model.html">Equations For Two-Layer QG Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notation_twolayer_model.html#forced-dissipative-equations">Forced-dissipative equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notation_twolayer_model.html#equations-in-fourier-space">Equations in Fourier space</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notation_equivalent_barotropic.html">Equations For Equivalent Barotropic QG Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">pyqg API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#base-model-class">Base Model Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#specific-model-types">Specific Model Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#lagrangian-particles">Lagrangian Particles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">pyqg</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../examples.html">Examples</a> &raquo;</li>
+      
+    <li>Two Layer QG Model Example</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/examples/two-layer.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="two-layer-qg-model-example">
+<h1>Two Layer QG Model Example<a class="headerlink" href="#two-layer-qg-model-example" title="Permalink to this headline">¶</a></h1>
+<p>Here is a quick overview of how to use the two-layer model. See the
+<a class="reference internal" href="../api.html#pyqg.QGModel" title="pyqg.QGModel"><tt class="xref py py-class docutils literal"><span class="pre">pyqg.QGModel</span></tt></a> api documentation for further details.</p>
+<p>First import numpy, matplotlib, and pyqg:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="gp">In [3]: </span><span class="kn">import</span> <span class="nn">pyqg</span>
+</pre></div>
+</div>
+<div class="section" id="initialize-and-run-the-model">
+<h2>Initialize and Run the Model<a class="headerlink" href="#initialize-and-run-the-model" title="Permalink to this headline">¶</a></h2>
+<p>Here we set up a model which will run for 10 years and start averaging
+after 5 years. There are lots of parameters that can be specified as
+keyword arguments but we are just using the defaults.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">year</span> <span class="o">=</span> <span class="mi">24</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mf">360.</span>
+
+<span class="gp">In [5]: </span><span class="n">m</span> <span class="o">=</span> <span class="n">pyqg</span><span class="o">.</span><span class="n">QGModel</span><span class="p">(</span><span class="n">tmax</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">year</span><span class="p">,</span> <span class="n">twrite</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">tavestart</span><span class="o">=</span><span class="mi">5</span><span class="o">*</span><span class="n">year</span><span class="p">)</span>
+
+<span class="gp">In [6]: </span><span class="n">m</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">t=        72000000, tc=     10000: cfl=0.097273, ke=0.000490861</span>
+<span class="go">t=       144000000, tc=     20000: cfl=0.101345, ke=0.000493633</span>
+<span class="go">t=       216000000, tc=     30000: cfl=0.078750, ke=0.000437760</span>
+<span class="go">t=       288000000, tc=     40000: cfl=0.086608, ke=0.000459623</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="visualize-output">
+<h2>Visualize Output<a class="headerlink" href="#visualize-output" title="Permalink to this headline">¶</a></h2>
+<p>We access the actual pv values through the attribute <tt class="docutils literal"><span class="pre">m.q</span></tt>. The first axis
+of <tt class="docutils literal"><span class="pre">q</span></tt> corresponds with the layer number. (Remeber that in python, numbering
+starts at 0.)</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">q_upper</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">Qy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y</span>
+
+<span class="gp">In [8]: </span><span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">q_upper</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">&#39;RdBu_r&#39;</span><span class="p">)</span>
+<span class="gh">Out[8]: </span><span class="go">&lt;matplotlib.contour.QuadContourSet instance at 0x108c51320&gt;</span>
+
+<span class="gp">In [9]: </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Upper Layer PV&#39;</span><span class="p">)</span>
+<span class="gh">Out[9]: </span><span class="go">&lt;matplotlib.text.Text at 0x109189950&gt;</span>
+
+<span class="gp">In [10]: </span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">();</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/q_contourf.png"><img alt="../_images/q_contourf.png" src="../_images/q_contourf.png" style="width: 5in;" /></a>
+</div>
+<div class="section" id="plot-diagnostics">
+<h2>Plot Diagnostics<a class="headerlink" href="#plot-diagnostics" title="Permalink to this headline">¶</a></h2>
+<p>The model automatically accumulates averages of certain diagnostics. We can
+find out what diagnostics are available by calling</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">m</span><span class="o">.</span><span class="n">describe_diagnostics</span><span class="p">()</span>
+<span class="go">NAME       | DESCRIPTION</span>
+<span class="gt">--------------------------------------------------------------------------------</span>
+<span class="n">APEflux</span>    <span class="o">|</span> <span class="n">spectral</span> <span class="n">flux</span> <span class="n">of</span> <span class="n">available</span> <span class="n">potential</span> <span class="n">energy</span>           
+<span class="n">APEgen</span>     <span class="o">|</span> <span class="n">total</span> <span class="n">APE</span> <span class="n">generation</span>                                  
+<span class="n">APEgenspec</span> <span class="o">|</span> <span class="n">spectrum</span> <span class="n">of</span> <span class="n">APE</span> <span class="n">generation</span>                            
+<span class="n">EKE</span>        <span class="o">|</span> <span class="n">mean</span> <span class="n">eddy</span> <span class="n">kinetic</span> <span class="n">energy</span>                              
+<span class="n">EKEdiss</span>    <span class="o">|</span> <span class="n">total</span> <span class="n">energy</span> <span class="n">dissipation</span> <span class="n">by</span> <span class="n">bottom</span> <span class="n">drag</span>               
+<span class="n">Ensspec</span>    <span class="o">|</span> <span class="n">enstrophy</span> <span class="n">spectrum</span>                                    
+<span class="n">KEflux</span>     <span class="o">|</span> <span class="n">spectral</span> <span class="n">flux</span> <span class="n">of</span> <span class="n">kinetic</span> <span class="n">energy</span>                       
+<span class="n">KEspec</span>     <span class="o">|</span>  <span class="n">kinetic</span> <span class="n">energy</span> <span class="n">spectrum</span>                              
+<span class="n">entspec</span>    <span class="o">|</span> <span class="n">barotropic</span> <span class="n">enstrophy</span> <span class="n">spectrum</span>                         
+<span class="n">q</span>          <span class="o">|</span> <span class="n">QGPV</span>                                                  
+</pre></div>
+</div>
+<p>To look at the wavenumber energy spectrum, we plot the <cite>KEspec</cite> diagnostic.
+(Note that summing along the l-axis, as in this example, does not give us
+a true <em>isotropic</em> wavenumber spectrum.)</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [12]: </span><span class="n">kespec_u</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_diagnostic</span><span class="p">(</span><span class="s">&#39;KEspec&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="gp">In [13]: </span><span class="n">kespec_l</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_diagnostic</span><span class="p">(</span><span class="s">&#39;KEspec&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="gp">In [14]: </span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span> <span class="n">m</span><span class="o">.</span><span class="n">kk</span><span class="p">,</span> <span class="n">kespec_u</span><span class="p">,</span> <span class="s">&#39;.-&#39;</span> <span class="p">)</span>
+<span class="gh">Out[14]: </span><span class="go">[&lt;matplotlib.lines.Line2D at 0x109480450&gt;]</span>
+
+<span class="gp">In [15]: </span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span> <span class="n">m</span><span class="o">.</span><span class="n">kk</span><span class="p">,</span> <span class="n">kespec_l</span><span class="p">,</span> <span class="s">&#39;.-&#39;</span> <span class="p">)</span>
+<span class="gh">Out[15]: </span><span class="go">[&lt;matplotlib.lines.Line2D at 0x1094e6bd0&gt;]</span>
+
+<span class="gp">In [16]: </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s">&#39;upper layer&#39;</span><span class="p">,</span><span class="s">&#39;lower layer&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s">&#39;lower left&#39;</span><span class="p">)</span>
+<span class="gh">Out[16]: </span><span class="go">&lt;matplotlib.legend.Legend at 0x109480e10&gt;</span>
+
+<span class="gp">In [17]: </span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-9</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">kk</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">kk</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+<span class="gh">Out[17]: </span><span class="go">(6.2831853071795867e-06, 0.00020106192982974677)</span>
+
+<span class="gp">In [18]: </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">r&#39;k (m$^{-1}$)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="gp">In [19]: </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Kinetic Energy Spectrum&#39;</span><span class="p">)</span>
+<span class="gh">Out[19]: </span><span class="go">&lt;matplotlib.text.Text at 0x109505690&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ke_spectrum.png"><img alt="../_images/ke_spectrum.png" src="../_images/ke_spectrum.png" style="width: 5in;" /></a>
+<p>We can also plot the spectral fluxes of energy.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [20]: </span><span class="n">ebud</span> <span class="o">=</span> <span class="p">[</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">get_diagnostic</span><span class="p">(</span><span class="s">&#39;APEgenspec&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="gp">   ....: </span>         <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">get_diagnostic</span><span class="p">(</span><span class="s">&#39;APEflux&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="gp">   ....: </span>         <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">get_diagnostic</span><span class="p">(</span><span class="s">&#39;KEflux&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="gp">   ....: </span>         <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">rek</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">del2</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">get_diagnostic</span><span class="p">(</span><span class="s">&#39;KEspec&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">M</span><span class="o">**</span><span class="mi">2</span> <span class="p">]</span>
+<span class="gp">   ....: </span>
+
+<span class="gp">In [21]: </span><span class="n">ebud</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">ebud</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="gp">In [22]: </span><span class="n">ebud_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;APE gen&#39;</span><span class="p">,</span><span class="s">&#39;APE flux&#39;</span><span class="p">,</span><span class="s">&#39;KE flux&#39;</span><span class="p">,</span><span class="s">&#39;Diss.&#39;</span><span class="p">,</span><span class="s">&#39;Resid.&#39;</span><span class="p">]</span>
+
+<span class="gp">In [23]: </span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">kk</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">ebud</span><span class="p">]</span>
+<span class="gh">Out[23]: </span><span class="go"></span>
+<span class="go">[[&lt;matplotlib.lines.Line2D at 0x10999b310&gt;],</span>
+<span class="go"> [&lt;matplotlib.lines.Line2D at 0x109990e50&gt;],</span>
+<span class="go"> [&lt;matplotlib.lines.Line2D at 0x1094a0390&gt;],</span>
+<span class="go"> [&lt;matplotlib.lines.Line2D at 0x109972ad0&gt;],</span>
+<span class="go"> [&lt;matplotlib.lines.Line2D at 0x109968650&gt;]]</span>
+
+<span class="gp">In [24]: </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ebud_labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="gh">Out[24]: </span><span class="go">&lt;matplotlib.legend.Legend at 0x109954b90&gt;</span>
+
+<span class="gp">In [25]: </span><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">kk</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">kk</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+<span class="gh">Out[25]: </span><span class="go">(6.2831853071795867e-06, 0.00020106192982974677)</span>
+
+<span class="gp">In [26]: </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">r&#39;k (m$^{-1}$)&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="gp">In [27]: </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Spectral Energy Transfers&#39;</span><span class="p">)</span>
+<span class="gh">Out[27]: </span><span class="go">&lt;matplotlib.text.Text at 0x109921cd0&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/ke_spectral_flux.png"><img alt="../_images/ke_spectral_flux.png" src="../_images/ke_spectral_flux.png" style="width: 5in;" /></a>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="barotropic.html" class="btn btn-neutral float-right" title="Barotropic Model Example">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../examples.html" class="btn btn-neutral" title="Examples"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, PyQG team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

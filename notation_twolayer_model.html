@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Equations For Two-Layer QG Model &mdash; pyqg 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pyqg 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Equations For Equivalent Barotropic QG Model" href="notation_equivalent_barotropic.html"/>
+        <link rel="prev" title="Surface QG Model Example" href="examples/sqg.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> pyqg</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/two-layer.html">Two Layer QG Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/barotropic.html">Barotropic Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/sqg.html">Surface QG Model Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Equations For Two-Layer QG Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#forced-dissipative-equations">Forced-dissipative equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#equations-in-fourier-space">Equations in Fourier space</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notation_equivalent_barotropic.html">Equations For Equivalent Barotropic QG Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">pyqg API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#base-model-class">Base Model Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#specific-model-types">Specific Model Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#lagrangian-particles">Lagrangian Particles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">pyqg</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Equations For Two-Layer QG Model</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/notation_twolayer_model.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="equations-for-two-layer-qg-model">
+<h1>Equations For Two-Layer QG Model<a class="headerlink" href="#equations-for-two-layer-qg-model" title="Permalink to this headline">¶</a></h1>
+<p>The two-layer quasigeostrophic evolution equations are (1)</p>
+<div class="math">
+\[\partial_t\,{q_1} + \mathsf{J}\left(\psi_1\,, q_1\right) + \beta\, {\psi_1}_x = \text{ssd} \,,\]</div>
+<p>and (2)</p>
+<div class="math">
+\[\partial_t\,{q_2} + \mathsf{J}\left(\psi_2\,, q_2\right)+ \beta\, {\psi_2}_x = -r_{ek}\nabla^2 \psi_2 + \text{ssd}\,,\]</div>
+<p>where the horizontal Jacobian is
+<span class="math">\(\mathsf{J}\left(A\,, B\right) = A_x B_y - A_y B_x\)</span>. Also in (1)
+and (2) ssd denotes small-scale dissipation (in turbulence regimes, ssd
+absorbs enstrophy that cascates towards small scales). The linear bottom
+drag in (2) dissipates large-scale energy.</p>
+<p>The potential vorticities are (3)</p>
+<div class="math">
+\[{q_1} = \nabla^2\psi_1 + F_1\left(\psi_2 - \psi_1\right)\,,\]</div>
+<p>and (4)</p>
+<div class="math">
+\[{q_2} = \nabla^2\psi_2 + F_2\left(\psi_1 - \psi_2\right)\,,\]</div>
+<p>where</p>
+<div class="math">
+\[F_1 \equiv \frac{k_d^2}{1 + \delta^2}\,, \qquad \text{and} \qquad F_2 \equiv \delta \,F_1\,,\]</div>
+<p>with the deformation wavenumber</p>
+<div class="math">
+\[k_d^2 \equiv\frac{f_0^2}{g}\frac{H_1+H_2}{H_1 H_2}\,,\]</div>
+<p>where <span class="math">\(H = H_1 + H_2\)</span> is the total depth at rest.</p>
+<div class="section" id="forced-dissipative-equations">
+<h2>Forced-dissipative equations<a class="headerlink" href="#forced-dissipative-equations" title="Permalink to this headline">¶</a></h2>
+<p>We are interested in flows driven by baroclinic instabilty of a
+base-state shear <span class="math">\(U_1-U_2\)</span>. In this case the evolution equations
+(1) and (2) become (5)</p>
+<div class="math">
+\[\partial_t\,{q_1} + \mathsf{J}\left(\psi_1\,, q_1\right) + \beta_1\, {\psi_1}_x = \text{ssd} \,,\]</div>
+<p>and (6)</p>
+<div class="math">
+\[\partial_t\,{q_2} + \mathsf{J}\left(\psi_2\,, q_2\right)+ \beta_2\, {\psi_2}_x = -r_{ek}\nabla^2 \psi_2 + \text{ssd}\,,\]</div>
+<p>where the mean potential vorticity gradients are (9,10)</p>
+<div class="math">
+\[\beta_1 = \beta + F_1\,\left(U_1 - U_2\right)\,, \qquad \text{and} \qquad \beta_2 = \beta - F_2\,\left( U_1 - U_2\right)\,.\]</div>
+</div>
+<div class="section" id="equations-in-fourier-space">
+<h2>Equations in Fourier space<a class="headerlink" href="#equations-in-fourier-space" title="Permalink to this headline">¶</a></h2>
+<p>We solve the two-layer QG system using a pseudo-spectral doubly-peridioc
+model. Fourier transforming the evolution equations (5) and (6) gives
+(7)</p>
+<div class="math">
+\[\partial_t\,{\hat{q}_1} = - \hat{\mathsf{J}}\left(\psi_1\,, q_1\right) - \text{i}\,k\, \beta_1\, {\hat{\psi}_1} + \hat{\text{ssd}} \,,\]</div>
+<p>and</p>
+<div class="math">
+\[\partial_t\,{\hat{q}_2} = \hat{\mathsf{J}}\left(\psi_2\,, q_2\right)- \beta_2\, \text{i}\,k\, {\hat{\psi}_2}  + r_{ek}\,\kappa^2\,\, \hat{\psi}_2 + \hat{\text{ssd}}\,,\]</div>
+<p>where, in the pseudo-spectral spirit, <span class="math">\(\hat{\mathsf{J}}\)</span> means the
+Fourier transform of the Jacobian i.e., we compute the products in
+physical space, and then transform to Fourier space.</p>
+<p>In Fourier space the &#8220;inversion relation&#8221; (3)-(4) is</p>
+<div class="math">
+\[\begin{split}\underbrace{\begin{bmatrix}
+-(\kappa^2 + F_1) \qquad \:\:\:\:F_1\\
+\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:F_2 \qquad - (\kappa^2 + F_2)
+\end{bmatrix}}_{\equiv \,\mathsf{M_2}}
+\begin{bmatrix}
+\hat{\psi}_1\\
+\hat{\psi}_2\\
+\end{bmatrix}
+=\begin{bmatrix}
+\hat{q}_1\\
+\hat{q}_2\\
+\end{bmatrix}
+\,,\end{split}\]</div>
+<p>or equivalently</p>
+<div class="math">
+\[\begin{split}\begin{bmatrix}
+\hat{\psi}_1\\
+\hat{\psi}_2\\
+\end{bmatrix}
+=\underbrace{\frac{1}{\text{det}\,\mathrm{M_2}}
+\begin{bmatrix}
+-(\kappa^2 + F_2) \qquad \:\:\:\:-F_1\\
+\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:-F_2 \qquad - (\kappa^2 + F_1)
+\end{bmatrix}}_{=\,\mathsf{M_2}^{-1}}
+\begin{bmatrix}
+\hat{q}_1\\
+\hat{q}_2\\
+\end{bmatrix}
+\,,\qquad\end{split}\]</div>
+<p>where</p>
+<div class="math">
+\[\qquad \text{det}\,\mathsf{M}_2 = \kappa^2\left(\kappa^2 + F_1 + F_2\right)\,.\]</div>
+<div class="section" id="marching-forward">
+<h3>Marching forward<a class="headerlink" href="#marching-forward" title="Permalink to this headline">¶</a></h3>
+<p>We use a third-order Adams-Bashford scheme</p>
+<div class="math">
+\[{\hat{q}_i}^{n+1} = E_f\times\left[{\hat{q}_i}^{n} + \frac{\Delta t}{2}\left(23\, \hat{Q}_i^{n} -  16\hat{Q}_i^{n-1} + 5 \hat{Q}_i^{n-2}\right)\right]\,,\]</div>
+<p>where</p>
+<div class="math">
+\[\hat{Q}_i^n \equiv - \hat{\mathsf{J}}\left(\psi_i^n\,, q_i^n\right) - \text{i}\,k\, \beta_i\, {\hat{\psi}_i^n}, \qquad i = 1,2\,.\]</div>
+<p>The AB3 is initialized with a first-order AB (or forward Euler)</p>
+<div class="math">
+\[{\hat{q}_i}^{1} = E_f\times\left[{\hat{q}_i}^{0} + \Delta t \hat{Q}_i^{0}\right]\,,\]</div>
+<p>The second step uses a second-order AB scheme</p>
+<div class="math">
+\[{\hat{q}_i}^{2} = E_f\times\left[{\hat{q}_i}^{1} + \frac{\Delta t}{2}\left(3\, \hat{Q}_i^{1} -  \hat{Q}_i^0\right)\right]\,.\]</div>
+<p>The small-scale dissipation is achieve by a highly-selective exponential
+filter</p>
+<div class="math">
+\[\begin{split}E_f =\begin{cases} \text{e}^{-23.6\,\left(\kappa^{\star} - \kappa_c\right)^4}: &amp;\qquad \kappa \ge\kappa_c\\
+\,\,\,\,\,\,\,\,\,\,\,1:&amp;\qquad \text{otherwise}\,.
+\end{cases}\end{split}\]</div>
+<p>where the non-dimensional wavenumber is</p>
+<div class="math">
+\[\kappa^{\star} \equiv \sqrt{ (k\,\Delta x)^2 + (l\,\Delta y)^2 }\, ,\]</div>
+<p>and <span class="math">\(\kappa_c\)</span> is a (non-dimensional) wavenumber cutoff here taken
+as <span class="math">\(65\%\)</span> of the Nyquist scale <span class="math">\(\kappa^{\star}_{ny} = \pi\)</span>.
+The parameter <span class="math">\(-23.6\)</span> is obtained from the requirement that the
+energy at the largest wanumber (<span class="math">\(\kappa^{\star} = \pi\)</span>) be zero
+whithin machine double precision:</p>
+<div class="math">
+\[\frac{\log 10^{-15}}{(0.35\, \pi)^4} \approx -23.5\,.\]</div>
+<p>For experiments with <span class="math">\(|\hat{q_i}|&lt;&lt;\mathcal{O}(1)\)</span> one can use a
+smaller constant.</p>
+</div>
+<div class="section" id="diagnostics">
+<h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this headline">¶</a></h3>
+<p>The kinetic energy is</p>
+<div class="math">
+\[E = \tfrac{1}{H\,S} \int  \tfrac{1}{2} H_1 \, |\nabla \psi_1|^2 +  \tfrac{1}{2} H_2 \, |\nabla \psi_2|^2 \, d S\,.\]</div>
+<p>The potential enstrophy is</p>
+<div class="math">
+\[Z = \tfrac{1}{H\,S}\int \tfrac{1}{2}H_1 \, q_1^2 + \tfrac{1}{2} H_2 \, q_2^2 \, d S\,.\]</div>
+<p>We can use the enstrophy to estimate the eddy turn-over timescale</p>
+<div class="math">
+\[T_e \equiv \frac{2\,\pi}{\sqrt{Z}}\,.\]</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="notation_equivalent_barotropic.html" class="btn btn-neutral float-right" title="Equations For Equivalent Barotropic QG Model">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="examples/sqg.html" class="btn btn-neutral" title="Surface QG Model Example"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, PyQG team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

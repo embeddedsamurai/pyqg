@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyqg API &mdash; pyqg 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pyqg 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Development" href="development.html"/>
+        <link rel="prev" title="Equations For Equivalent Barotropic QG Model" href="notation_equivalent_barotropic.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> pyqg</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/two-layer.html">Two Layer QG Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/barotropic.html">Barotropic Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/sqg.html">Surface QG Model Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notation_twolayer_model.html">Equations For Two-Layer QG Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notation_twolayer_model.html#forced-dissipative-equations">Forced-dissipative equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notation_twolayer_model.html#equations-in-fourier-space">Equations in Fourier space</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notation_equivalent_barotropic.html">Equations For Equivalent Barotropic QG Model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">pyqg API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#base-model-class">Base Model Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#specific-model-types">Specific Model Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lagrangian-particles">Lagrangian Particles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">pyqg</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>pyqg API</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/api.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-pyqg">
+<span id="pyqg-api"></span><h1>pyqg API<a class="headerlink" href="#module-pyqg" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="base-model-class">
+<h2>Base Model Class<a class="headerlink" href="#base-model-class" title="Permalink to this headline">¶</a></h2>
+<p>This is the base class from which all other models inherit. All of these
+initialization arguments are available to all of the other model types.
+This class is not called directly.</p>
+<dl class="class">
+<dt id="pyqg.Model">
+<em class="property">class </em><tt class="descclassname">pyqg.</tt><tt class="descname">Model</tt><big>(</big><em>nx=64</em>, <em>ny=None</em>, <em>L=1000000.0</em>, <em>W=None</em>, <em>dt=7200.0</em>, <em>tplot=10000.0</em>, <em>twrite=1000.0</em>, <em>tmax=1576800000.0</em>, <em>tavestart=315360000.0</em>, <em>taveint=86400.0</em>, <em>tpickup=31536000.0</em>, <em>useAB2=False</em>, <em>rek=5.787e-07</em>, <em>filterfac=23.6</em>, <em>diagnostics_list='all'</em>, <em>ntd=1</em>, <em>quiet=False</em><big>)</big><a class="headerlink" href="#pyqg.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generic pseudo-spectral inversion model.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>q</td>
+<td>(real array) potential vorticity in real space</td>
+</tr>
+<tr class="row-even"><td>qh</td>
+<td>(complex array) potential vorticity in spectral space</td>
+</tr>
+<tr class="row-odd"><td>ph</td>
+<td>(complex array) streamfunction in spectral space</td>
+</tr>
+<tr class="row-even"><td>u, v: real arrays</td>
+<td>velocity anomaly components in real space</td>
+</tr>
+<tr class="row-odd"><td>ufull, vfull: real arrays</td>
+<td>full velocity components in real space</td>
+</tr>
+<tr class="row-even"><td>uh, vh</td>
+<td>(complex arrays) velocity anomaly components in spectral space</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All of the test cases use <tt class="docutils literal"><span class="pre">nx==ny</span></tt>. Expect bugs if you choose
+these parameters to be different.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All time intervals will be rounded to nearest <cite>dt</cite> interval.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nx</strong> : int</p>
+<blockquote>
+<div><p>Number of grid points in the x direction.</p>
+</div></blockquote>
+<p><strong>ny</strong> : int</p>
+<blockquote>
+<div><p>Number of grid points in the y direction (default: nx).</p>
+</div></blockquote>
+<p><strong>L</strong> : number</p>
+<blockquote>
+<div><p>Domain length in x direction. Units: meters.</p>
+</div></blockquote>
+<p><strong>W :</strong></p>
+<blockquote>
+<div><p>Domain width in y direction. Units: meters (default: L).</p>
+</div></blockquote>
+<p><strong>rek</strong> : number</p>
+<blockquote>
+<div><p>linear drag in lower layer. Units: seconds <sup>-1</sup>.</p>
+</div></blockquote>
+<p><strong>filterfac</strong> : number</p>
+<blockquote>
+<div><p>amplitdue of the spectral spherical filter (originally 18.4, later
+changed to 23.6).</p>
+</div></blockquote>
+<p><strong>dt</strong> : number</p>
+<blockquote>
+<div><p>Numerical timstep. Units: seconds.</p>
+</div></blockquote>
+<p><strong>tplot</strong> : int</p>
+<blockquote>
+<div><p>Unterval for plotting. Units: number of timesteps.</p>
+</div></blockquote>
+<p><strong>tcfl</strong> : int</p>
+<blockquote>
+<div><p>Interval for cfl writeout. Units: number of timesteps.</p>
+</div></blockquote>
+<p><strong>tmax</strong> : number</p>
+<blockquote>
+<div><p>Total time of integration. Units: seconds.</p>
+</div></blockquote>
+<p><strong>tavestart</strong> : number</p>
+<blockquote>
+<div><p>Start time for averaging. Units: seconds.</p>
+</div></blockquote>
+<p><strong>tsnapstart</strong> : number</p>
+<blockquote>
+<div><p>Start time for snapshot writeout. Units: seconds.</p>
+</div></blockquote>
+<p><strong>taveint</strong> : number</p>
+<blockquote>
+<div><p>Time interval for accumulation of diagnostic averages.
+Units: seconds. (For performance purposes, averaging does not have to
+occur every timestep)</p>
+</div></blockquote>
+<p><strong>tsnapint</strong> : number</p>
+<blockquote>
+<div><p>Time interval for snapshots. Units: seconds.</p>
+</div></blockquote>
+<p><strong>tpickup</strong> : number</p>
+<blockquote>
+<div><p>Time interval for writing pickup files. Units: seconds.</p>
+</div></blockquote>
+<p><strong>ntd</strong> : int</p>
+<blockquote class="last">
+<div><p>Number of threads to use. Should not exceed the number of cores on
+your machine.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyqg.Model.describe_diagnostics">
+<tt class="descname">describe_diagnostics</tt><big>(</big><big>)</big><a class="headerlink" href="#pyqg.Model.describe_diagnostics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a human-readable summary of the available diagnostics.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqg.Model.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyqg.Model.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the model forward without stopping until the end.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqg.Model.run_with_snapshots">
+<tt class="descname">run_with_snapshots</tt><big>(</big><em>tsnapstart=0.0</em>, <em>tsnapint=432000.0</em><big>)</big><a class="headerlink" href="#pyqg.Model.run_with_snapshots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the model forward, yielding to user code at specified intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tsnapstart</strong> : int</p>
+<blockquote>
+<div><p>The timestep at which to begin yielding.</p>
+</div></blockquote>
+<p><strong>tstapint</strong> : int</p>
+<blockquote class="last">
+<div><p>The interval at which to yield.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqg.Model.spec_var">
+<tt class="descname">spec_var</tt><big>(</big><em>ph</em><big>)</big><a class="headerlink" href="#pyqg.Model.spec_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute variance of p from Fourier coefficients ph</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="specific-model-types">
+<h2>Specific Model Types<a class="headerlink" href="#specific-model-types" title="Permalink to this headline">¶</a></h2>
+<p>These are the actual models which are run.</p>
+<dl class="class">
+<dt id="pyqg.QGModel">
+<em class="property">class </em><tt class="descclassname">pyqg.</tt><tt class="descname">QGModel</tt><big>(</big><em>beta=1.5e-11</em>, <em>rd=15000.0</em>, <em>delta=0.25</em>, <em>H1=500</em>, <em>U1=0.025</em>, <em>U2=0.0</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyqg.QGModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Two layer quasigeostrophic model.</p>
+<p>This model is meant to representflows driven by baroclinic instabilty of a
+base-state shear <span class="math">\(U_1-U_2\)</span>. The upper and lower
+layer potential vorticity anomalies <span class="math">\(q_1\)</span> and <span class="math">\(q_2\)</span> are</p>
+<div class="math">
+\[\begin{split}q_1 &amp;= \nabla^2\psi_1 + F_1(\psi_2 - \psi_1) \\
+q_2 &amp;= \nabla^2\psi_2 + F_2(\psi_1 - \psi_2)\end{split}\]</div>
+<p>with</p>
+<div class="math">
+\[\begin{split}F_1 &amp;\equiv \frac{k_d^2}{1 + \delta^2} \\
+F_2 &amp;\equiv \delta F_1 \ .\end{split}\]</div>
+<p>The layer depth ratio is given by <span class="math">\(\delta = H_1 / H_2\)</span>.
+The total depth is <span class="math">\(H = H_1 + H_2\)</span>.</p>
+<p>The background potential vorticity gradients are</p>
+<div class="math">
+\[\begin{split}\beta_1 &amp;= \beta + F_1(U_1 - U_2) \\
+\beta_2 &amp;= \beta - F_2( U_1 - U_2) \ .\end{split}\]</div>
+<p>The evolution equations for <span class="math">\(q_1\)</span> and <span class="math">\(q_2\)</span> are</p>
+<div class="math">
+\[\begin{split}\partial_t\,{q_1} + J(\psi_1\,, q_1) + \beta_1\,
+{\psi_1}_x &amp;= \text{ssd} \\
+\partial_t\,{q_2} + J(\psi_2\,, q_2)+ \beta_2\, {\psi_2}_x
+&amp;= -r_{ek}\nabla^2 \psi_2 + \text{ssd}\,.\end{split}\]</div>
+<p>where <cite>ssd</cite> represents small-scale dissipation and <span class="math">\(r_{ek}\)</span> is the
+Ekman friction parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>beta</strong> : number</p>
+<blockquote>
+<div><p>Gradient of coriolis parameter. Units: meters <sup>-1</sup>
+seconds <sup>-1</sup></p>
+</div></blockquote>
+<p><strong>rek</strong> : number</p>
+<blockquote>
+<div><p>Linear drag in lower layer. Units: seconds <sup>-1</sup></p>
+</div></blockquote>
+<p><strong>rd</strong> : number</p>
+<blockquote>
+<div><p>Deformation radius. Units: meters.</p>
+</div></blockquote>
+<p><strong>delta</strong> : number</p>
+<blockquote>
+<div><p>Layer thickness ratio (H1/H2)</p>
+</div></blockquote>
+<p><strong>U1</strong> : number</p>
+<blockquote>
+<div><p>Upper layer flow. Units: m/s</p>
+</div></blockquote>
+<p><strong>U2</strong> : number</p>
+<blockquote class="last">
+<div><p>Lower layer flow. Units: m/s</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyqg.QGModel.set_U1U2">
+<tt class="descname">set_U1U2</tt><big>(</big><em>U1</em>, <em>U2</em><big>)</big><a class="headerlink" href="#pyqg.QGModel.set_U1U2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set background zonal flow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>U1</strong> : number</p>
+<blockquote>
+<div><p>Upper layer flow. Units: m/s</p>
+</div></blockquote>
+<p><strong>U2</strong> : number</p>
+<blockquote class="last">
+<div><p>Lower layer flow. Units: m/s</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqg.QGModel.set_q1q2">
+<tt class="descname">set_q1q2</tt><big>(</big><em>q1</em>, <em>q2</em>, <em>check=False</em><big>)</big><a class="headerlink" href="#pyqg.QGModel.set_q1q2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set upper and lower layer PV anomalies.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>q1</strong> : array-like</p>
+<blockquote>
+<div><p>Upper layer PV anomaly in spatial coordinates.</p>
+</div></blockquote>
+<p><strong>q1</strong> : array-like</p>
+<blockquote class="last">
+<div><p>Lower layer PV anomaly in spatial coordinates.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyqg.BTModel">
+<em class="property">class </em><tt class="descclassname">pyqg.</tt><tt class="descname">BTModel</tt><big>(</big><em>beta=0.0</em>, <em>rd=0.0</em>, <em>H=1.0</em>, <em>U=0.0</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyqg.BTModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Single-layer (barotropic) quasigeostrophic model.
+This class can represent both pure two-dimensional flow
+and also single reduced-gravity layers with deformation
+radius <tt class="docutils literal"><span class="pre">rd</span></tt>.</p>
+<p>The equivalent-barotropic quasigeostrophic evolution equations is</p>
+<div class="math">
+\[\partial_t q + J(\psi, q ) + \beta \psi_x = \text{ssd}\]</div>
+<p>The potential vorticity anomaly is</p>
+<div class="math">
+\[q = \nabla^2 \psi - \kappa_d^2 \psi\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>beta</strong> : number, optional</p>
+<blockquote>
+<div><p>Gradient of coriolis parameter. Units: meters <sup>-1</sup>
+seconds <sup>-1</sup></p>
+</div></blockquote>
+<p><strong>rd</strong> : number, optional</p>
+<blockquote>
+<div><p>Deformation radius. Units: meters.</p>
+</div></blockquote>
+<p><strong>U</strong> : number, optional</p>
+<blockquote class="last">
+<div><p>Upper layer flow. Units: meters.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyqg.BTModel.set_U">
+<tt class="descname">set_U</tt><big>(</big><em>U</em><big>)</big><a class="headerlink" href="#pyqg.BTModel.set_U" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set background zonal flow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>U</strong> : number</p>
+<blockquote class="last">
+<div><p>Upper layer flow. Units meters.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyqg.SQGModel">
+<em class="property">class </em><tt class="descclassname">pyqg.</tt><tt class="descname">SQGModel</tt><big>(</big><em>beta=0.0</em>, <em>Nb=1.0</em>, <em>rd=0.0</em>, <em>H=1.0</em>, <em>U=0.0</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyqg.SQGModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Surface quasigeostrophic model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>beta</strong> : number</p>
+<blockquote>
+<div><p>Gradient of coriolis parameter. Units: meters <sup>-1</sup>
+seconds <sup>-1</sup></p>
+</div></blockquote>
+<p><strong>Nb</strong> : number</p>
+<blockquote>
+<div><p>Buoyancy frequency. Units: seconds <sup>-1</sup>.</p>
+</div></blockquote>
+<p><strong>U</strong> : number</p>
+<blockquote class="last">
+<div><p>Background zonal flow. Units: meters.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyqg.SQGModel.set_U">
+<tt class="descname">set_U</tt><big>(</big><em>U</em><big>)</big><a class="headerlink" href="#pyqg.SQGModel.set_U" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set background zonal flow</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="lagrangian-particles">
+<h2>Lagrangian Particles<a class="headerlink" href="#lagrangian-particles" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyqg.LagrangianParticleArray2D">
+<em class="property">class </em><tt class="descclassname">pyqg.</tt><tt class="descname">LagrangianParticleArray2D</tt><big>(</big><em>x0</em>, <em>y0</em>, <em>periodic_in_x=False</em>, <em>periodic_in_y=False</em>, <em>xmin=-inf</em>, <em>xmax=inf</em>, <em>ymin=-inf</em>, <em>ymax=inf</em>, <em>particle_dtype='f8'</em><big>)</big><a class="headerlink" href="#pyqg.LagrangianParticleArray2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class for keeping track of a set of lagrangian particles
+in two-dimensional space. Tries to be fast.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x0, y0</strong> : array-like</p>
+<blockquote>
+<div><p>Two arrays (same size) representing the particle initial
+positions.</p>
+</div></blockquote>
+<p><strong>periodic_in_x</strong> : bool</p>
+<blockquote>
+<div><p>Whether the domain wraps in the x direction.</p>
+</div></blockquote>
+<p><strong>periodic_in_y</strong> : bool</p>
+<blockquote>
+<div><p>Whether the domain &#8216;wraps&#8217; in the y direction.</p>
+</div></blockquote>
+<p><strong>xmin, xmax</strong> : numbers</p>
+<blockquote>
+<div><p>Maximum and minimum values of x coordinate</p>
+</div></blockquote>
+<p><strong>ymin, ymax</strong> : numbers</p>
+<blockquote>
+<div><p>Maximum and minimum values of y coordinate</p>
+</div></blockquote>
+<p><strong>particle_dtype</strong> : dtype</p>
+<blockquote class="last">
+<div><p>Data type to use for particles</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyqg.LagrangianParticleArray2D.step_forward_with_function">
+<tt class="descname">step_forward_with_function</tt><big>(</big><em>uv0fun</em>, <em>uv1fun</em>, <em>dt</em><big>)</big><a class="headerlink" href="#pyqg.LagrangianParticleArray2D.step_forward_with_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advance particles using a function to determine u and v.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>uv0fun</strong> : function</p>
+<blockquote>
+<div><p>Called like <tt class="docutils literal"><span class="pre">uv0fun(x,y)</span></tt>. Should return the velocity field
+u, v at time t.</p>
+</div></blockquote>
+<p><strong>uv1fun(x,y)</strong> : function</p>
+<blockquote>
+<div><p>Called like <tt class="docutils literal"><span class="pre">uv1fun(x,y)</span></tt>. Should return the velocity field
+u, v at time t + dt.</p>
+</div></blockquote>
+<p><strong>dt</strong> : number</p>
+<blockquote class="last">
+<div><p>Timestep.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyqg.GriddedLagrangianParticleArray2D">
+<em class="property">class </em><tt class="descclassname">pyqg.</tt><tt class="descname">GriddedLagrangianParticleArray2D</tt><big>(</big><em>x0</em>, <em>y0</em>, <em>Nx</em>, <em>Ny</em>, <em>grid_type='A'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyqg.GriddedLagrangianParticleArray2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lagrangian particles with velocities given on a regular cartesian grid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x0, y0</strong> : array-like</p>
+<blockquote>
+<div><p>Two arrays (same size) representing the particle initial
+positions.</p>
+</div></blockquote>
+<p><strong>Nx, Ny: int</strong></p>
+<blockquote>
+<div><p>Number of grid points in the x and y directions</p>
+</div></blockquote>
+<p><strong>grid_type: {&#8216;A&#8217;}</strong></p>
+<blockquote class="last">
+<div><p>Arakawa grid type specifying velocity positions.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyqg.GriddedLagrangianParticleArray2D.interpolate_gridded_scalar">
+<tt class="descname">interpolate_gridded_scalar</tt><big>(</big><em>x</em>, <em>y</em>, <em>c</em>, <em>order=1</em>, <em>pad=1</em>, <em>offset=0</em><big>)</big><a class="headerlink" href="#pyqg.GriddedLagrangianParticleArray2D.interpolate_gridded_scalar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolate gridded scalar C to points x,y.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x, y</strong> : array-like</p>
+<blockquote>
+<div><p>Points at which to interpolate</p>
+</div></blockquote>
+<p><strong>c</strong> : array-like</p>
+<blockquote>
+<div><p>The scalar, assumed to be defined on the grid.</p>
+</div></blockquote>
+<p><strong>order</strong> : int</p>
+<blockquote>
+<div><p>Order of interpolation</p>
+</div></blockquote>
+<p><strong>pad</strong> : int</p>
+<blockquote>
+<div><p>Number of pad cells added</p>
+</div></blockquote>
+<p><strong>offset</strong> : int</p>
+<blockquote>
+<div><p>???</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ci</strong> : array-like</p>
+<blockquote class="last">
+<div><p>The interpolated scalar</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyqg.GriddedLagrangianParticleArray2D.step_forward_with_gridded_uv">
+<tt class="descname">step_forward_with_gridded_uv</tt><big>(</big><em>U0</em>, <em>V0</em>, <em>U1</em>, <em>V1</em>, <em>dt</em>, <em>order=1</em><big>)</big><a class="headerlink" href="#pyqg.GriddedLagrangianParticleArray2D.step_forward_with_gridded_uv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advance particles using a gridded velocity field. Because of the
+Runga-Kutta timestepping, we need two velocity fields at different
+times.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>U0, V0</strong> : array-like</p>
+<blockquote>
+<div><p>Gridded velocity fields at time t - dt.</p>
+</div></blockquote>
+<p><strong>U1, V1</strong> : array-like</p>
+<blockquote>
+<div><p>Gridded velocity fields at time t.</p>
+</div></blockquote>
+<p><strong>dt</strong> : number</p>
+<blockquote>
+<div><p>Timestep.</p>
+</div></blockquote>
+<p><strong>order</strong> : int</p>
+<blockquote class="last">
+<div><p>Order of interpolation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="development.html" class="btn btn-neutral float-right" title="Development">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="notation_equivalent_barotropic.html" class="btn btn-neutral" title="Equations For Equivalent Barotropic QG Model"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, PyQG team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

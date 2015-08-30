@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; pyqg 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pyqg 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Examples" href="examples.html"/>
+        <link rel="prev" title="pyqg: Python Quasigeostrophic Model" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> pyqg</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/two-layer.html">Two Layer QG Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/barotropic.html">Barotropic Model Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/sqg.html">Surface QG Model Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notation_twolayer_model.html">Equations For Two-Layer QG Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notation_twolayer_model.html#forced-dissipative-equations">Forced-dissipative equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notation_twolayer_model.html#equations-in-fourier-space">Equations in Fourier space</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notation_equivalent_barotropic.html">Equations For Equivalent Barotropic QG Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">pyqg API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#base-model-class">Base Model Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#specific-model-types">Specific Model Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#lagrangian-particles">Lagrangian Particles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">pyqg</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/installation.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python 2.7. (Python 3 support is in the works)</li>
+<li><a class="reference external" href="http://www.numpy.org/">numpy</a> (1.6 or later)</li>
+<li><a class="reference external" href="http://www.fftw.org/">fftw</a> (3.3 or later)</li>
+<li><a class="reference external" href="http://github.com/hgomersall/pyFFTW">pyfftw</a> (0.9.2 or later)</li>
+</ul>
+</div>
+<div class="section" id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">¶</a></h2>
+<p>In our opinion, the best way to get python and numpy is to use a distribution
+such as <a class="reference external" href="https://store.continuum.io/cshop/anaconda">Anaconda</a> (recommended) or <a class="reference external" href="https://www.enthought.com/products/canopy">Canopy</a>. These provide robust package
+management and come with many other useful packages for scientific computing.
+The pyqg developers are mostly using anaconda.</p>
+<p>Because pyqg is a pseudo-spectral code, it realies heavily on fast-Fourier
+transforms (FFTs), which are the main performance bottlneck. For this reason, we
+have made <a class="reference external" href="http://www.fftw.org/">fftw</a> (a fast, multithreaded, open source C library) and <a class="reference external" href="http://github.com/hgomersall/pyFFTW">pyfftw</a> (a
+python wrapper around fftw) core dependencies for pyqg. Installing fftw and
+pyfftw can be slightly painful. Hopefully the instructions below are sufficient.
+If not, please <a class="reference external" href="http://github.com/pyqg/pyqg/issues">send feedback</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We would like to add compatibilty for numpy.fft in the near future,
+eliminating the dependency on fftw and pyfftw.</p>
+</div>
+<div class="section" id="installing-fftw-and-pyfftw">
+<h3>Installing fftw and pyfftw<a class="headerlink" href="#installing-fftw-and-pyfftw" title="Permalink to this headline">¶</a></h3>
+<p>Once you have installed pyfftw via one of these paths, you can proceed to
+<a class="reference internal" href="#install-pyqg"><em>Installing pyqg</em></a>.</p>
+<div class="section" id="the-easy-way-installing-with-conda">
+<h4>The easy way: installing with conda<a class="headerlink" href="#the-easy-way-installing-with-conda" title="Permalink to this headline">¶</a></h4>
+<p>If you are using <a class="reference external" href="https://store.continuum.io/cshop/anaconda">Anaconda</a>, we have discovered that you can easily install
+pyffw using the <tt class="docutils literal"><span class="pre">conda</span></tt> command. Although pyfftw is not part of the <a class="reference external" href="http://docs.continuum.io/anaconda/pkg-docs">main
+Anaconda distribution</a>, it is
+distributed as a conda pacakge through several <a class="reference external" href="https://anaconda.org/">user channels</a>.</p>
+<p>There is a useful <a class="reference external" href="https://dranek.com/blog/2014/Feb/conda-binstar-and-fftw/">blog post</a> describing how
+the pyfftw conda package was created. There are currently 13
+<a class="reference external" href="https://anaconda.org/search?q=pyfftw">pyfftw user packages</a>
+hosted on anaconda.org. Each has different dependencies and platform support
+(e.g. linux, windows, mac.)
+The <a class="reference external" href="https://anaconda.org/mforbes">mforbes</a> channel version was selected
+for this documentation because its pyfftw package is compatible with the
+latest version of numpy (1.9.2) and both linux and mac platforms. We don&#8217;t know
+who mforbes is, but we are greatful to him/her.</p>
+<p>To install pyfftw from the mforbes channel, open a terminal and run
+the command</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>conda install -c mforbes pyfftw
+</pre></div>
+</div>
+<p>If this doesn&#8217;t work for you, or if it asks you to upgrade / downgrade more of
+your core pacakges (e.g. numpy) than you would like, you can easily try
+replacing <tt class="docutils literal"><span class="pre">mforbes</span></tt> with one of the other <a class="reference external" href="https://anaconda.org/search?q=pyfftw">channels</a>.</p>
+</div>
+<div class="section" id="the-hard-way-installing-from-source">
+<h4>The hard way: installing from source<a class="headerlink" href="#the-hard-way-installing-from-source" title="Permalink to this headline">¶</a></h4>
+<p>This is the most difficult step for new users. You will probably have to build
+FFTW3 from source. However, if you are using Ubuntu linux, you can save yourself
+some trouble by installing fftw using the apt package manager</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install libfftw3-dev libfftw3-doc
+</pre></div>
+</div>
+<p>Otherwise you have to build FFTW3 from source. Your main resource for the
+<a class="reference external" href="http://www.fftw.org/">FFTW homepage</a>. Below we summarize the steps</p>
+<p>First <a class="reference external" href="http://www.fftw.org/download.html">download</a> the source code.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>wget http://www.fftw.org/fftw-3.3.4.tar.gz
+<span class="nv">$ </span>tar -xvzf fftw-3.3.4.tar.gz
+<span class="nv">$ </span><span class="nb">cd </span>fftw-3.3.4
+</pre></div>
+</div>
+<p>Then run the configure command</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure --enable-threads --enable-shared
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you don&#8217;t have root privileges on your computer (e.g. on a shared
+cluster) the best approach is to ask your system administrator to install
+FFTW3 for you. If that doesn&#8217;t work, you will have to install the FFTW3
+libraries into a location in your home directory (e.g. <tt class="docutils literal"><span class="pre">$HOME/fftw</span></tt>) and
+add the flag <tt class="docutils literal"><span class="pre">--prefix=$HOME/fftw</span></tt> to the configure command above.</p>
+</div>
+<p>Then build the software</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make
+</pre></div>
+</div>
+<p>Then install the software</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo make install
+</pre></div>
+</div>
+<p>This will install the FFTW3 libraries into you system&#8217;s library directory.
+If you don&#8217;t have root privileges (see note above), remove the <tt class="docutils literal"><span class="pre">sudo</span></tt>. This
+will install the libraries into the <tt class="docutils literal"><span class="pre">prefix</span></tt> location you specified.</p>
+<p>You are not done installing FFTW yet. pyfftw requires special versions
+of the FFTW library specialized to different data types (32-bit floats and
+double-long floars). You need to-configure and re-build FFTW two more times
+with extra flags.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure --enable-threads --enable-shared --enable-float
+<span class="nv">$ </span>make
+<span class="nv">$ </span>sudo make install
+<span class="nv">$ </span>./configure --enable-threads --enable-shared --enable-long-double
+<span class="nv">$ </span>make
+<span class="nv">$ </span>sudo make install
+</pre></div>
+</div>
+<p>At this point, you FFTW installation is complete. We now move on to pyfftw.
+pyfftw is a python wrapper around the FFTW libraries. The easiest way to
+install it is using <tt class="docutils literal"><span class="pre">pip</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install pyfftw
+</pre></div>
+</div>
+<p>or if you don&#8217;t have root privileges</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install pyfftw --user
+</pre></div>
+</div>
+<p>If this fails for some reason, you can manually download and install it
+according to the <a class="reference external" href="https://github.com/hgomersall/pyFFTW#building">instructions on github</a>. First clone the repository:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/hgomersall/pyFFTW.git
+</pre></div>
+</div>
+<p>Then install it</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>pyFFTW
+<span class="nv">$ </span>python setup.py install
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python setup.py install --user
+</pre></div>
+</div>
+<p>if you don&#8217;t have root privileges. If you installed FFTW in a non-standard
+location (e.g. $HOME/fftw), you might have to do something tricky at this point
+to make sure pyfftw can find FFTW. (I figured this out once, but I can&#8217;t
+remember how.)</p>
+</div>
+</div>
+<div class="section" id="installing-pyqg">
+<span id="install-pyqg"></span><h3>Installing pyqg<a class="headerlink" href="#installing-pyqg" title="Permalink to this headline">¶</a></h3>
+<p>With pyfftw installed, you can now install pyqg. The easiest way is with pip:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install pyqg
+</pre></div>
+</div>
+<p>You can also clone the <a href="#id2"><span class="problematic" id="id3">`pyqg git repository &lt;https://github.com/pyqg/pyqg`__</span></a> to
+use the latest development version.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/pyqg/pyqg.git
+</pre></div>
+</div>
+<p>Then install pyqg on your system:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python setup.py install <span class="o">[</span>--user<span class="o">]</span>
+</pre></div>
+</div>
+<p>(The <tt class="docutils literal"><span class="pre">--user</span></tt> flag is optional&#8211;use it if you don&#8217;t have root privileges.)</p>
+<p>If you want to make changes in the code, set up the development mode:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python setup.py develop
+</pre></div>
+</div>
+<p>pyqg is a work in progress, and we really encourage users to contribute to its
+<a class="reference internal" href="development.html"><em>Development</em></a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="pyqg: Python Quasigeostrophic Model"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, PyQG team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
